@@ -1,5 +1,6 @@
 package nl.gertontenham.spring.resource;
 
+import io.swagger.annotations.Api;
 import nl.gertontenham.spring.resource.cache.EtagCachable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.Response;
 @Component
 @Path("/ping")
 @EtagCachable
+@Api(value = "Ping resource", produces = "text/plain")
 public class PingResource {
 
     private static final Logger log = LoggerFactory.getLogger(PingResource.class);
