@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -20,14 +22,16 @@ public class PingResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
+    @PermitAll
     public Response handlePing() {
         return Response.ok(data).build();
     }
 
     @POST
     @Consumes("text/plain")
+    @RolesAllowed("user")
     public Response post(String data) {
         this.data = data;
-        return Response.noContent().build();
+        return Response.noContent().contentLocation(this.handlePing().getLocation()).build();
     }
 }
